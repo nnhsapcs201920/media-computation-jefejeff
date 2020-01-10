@@ -7,13 +7,14 @@ import java.util.ArrayList;
  */
 public class Store
 {
-    private ArrayList<Customer> list;
+    ArrayList<Customer> list;
 
     /**
      * Constructor for objects of class Store
      */
     public Store()
     {
+        list = new ArrayList<Customer>(0);
     }
 
     /**
@@ -36,8 +37,17 @@ public class Store
 
     public String nameOfBestCustomer()
     {
-        double max;
-        String bestCust = "";
+        double max = 0.0;
+        int index = 0;
+        for(int i = 0; i < list.size() - 1; i++)
+        {
+            if(max < list.get(i).getSale())
+            {
+                max = list.get(i).getSale();
+                index = i;
+            }
+        }
+        String bestCust = list.get(index).getName();
         return bestCust;
     }
 }

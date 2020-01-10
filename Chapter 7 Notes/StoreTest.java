@@ -1,33 +1,41 @@
-
+import java.util.ArrayList;
+import java.util.Scanner;
 /**
- * Write a description of class StoreTest here.
+ * A class to test the store class
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author jcheng3
+ * @version 10 January 2020
  */
 public class StoreTest
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class StoreTest
-     */
-    public StoreTest()
+    public static void main (String[] args)
     {
-        // initialise instance variables
-        x = 0;
-    }
+        Scanner s = new Scanner(System.in);
+        Store costco = new Store();
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+        System.out.println("Welcome. Please input the name of the customer, press enter, then input their transaction and press enter.");
+        String firstName = s.next();
+        double firstSale = s.nextDouble();
+        costco.addSale(firstName, firstSale);
+
+        int check = 1;
+        while(check == 1)
+        {
+            System.out.println("Would you like to input another transaction? Enter 1 for yes, and 2 for no.");
+            check = s.nextInt();
+            if (check == 1)
+            {
+                System.out.println("Welcome. Please input the name of the customer, press enter, then input their transaction and press enter.");
+                String name = s.next();
+                double sale = s.nextDouble();
+                costco.addSale(name, sale); 
+            }
+        }
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        String topdog = costco.nameOfBestCustomer();
+        System.out.println(topdog + " is the top customer of the day!");        
     }
 }
