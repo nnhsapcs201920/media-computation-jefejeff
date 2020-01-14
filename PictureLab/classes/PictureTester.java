@@ -54,12 +54,39 @@ public class PictureTester
         caterpillar.explore();
     }
 
+    /** Method to test mirrorDiagonal    */
+    public static void testMirrorDiagonal()
+    {
+        Picture caterpillar = new Picture("caterpillar.jpg");
+        caterpillar.explore();
+        caterpillar.mirrorDiagonal();
+        caterpillar.explore();
+    }
+
     /** Method to test mirrorTemple */
     public static void testMirrorTemple()
     {
         Picture temple = new Picture("temple.jpg");
         temple.explore();
         temple.mirrorTemple();
+        temple.explore();
+    }
+
+    /** Method to test mirrorArms */
+    public static void testMirrorArms()
+    {
+        Picture temple = new Picture("snowman.jpg");
+        temple.explore();
+        temple.mirrorArms();
+        temple.explore();
+    }
+
+    /** Method to test mirrorGull */
+    public static void testGull()
+    {
+        Picture temple = new Picture("seagull.jpg");
+        temple.explore();
+        temple.mirrorGull();
         temple.explore();
     }
 
