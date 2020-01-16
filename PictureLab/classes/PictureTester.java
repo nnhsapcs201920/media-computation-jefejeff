@@ -124,6 +124,24 @@ public class PictureTester
         swan.explore();
     }
 
+    /** Method to test fixUnderwater */
+    public static void testFixUnderwater()
+    {
+        Picture swan = new Picture("water.jpg");
+        swan.explore();
+        swan.fixUnderwater();
+        swan.explore();
+    }
+
+    /** Method to test cropAndCopy */
+    public static void testCropAndCopy()
+    {
+        Picture snowman = new Picture("snowman.jpg");
+        Picture man = new Picture("blue-mark.jpg");
+        snowman.cropAndCopy(man, 170, 290, 280, 380, 40, 145);
+        snowman.explore();
+    }
+
     /** Main method for testing.  Every class can have a main
      * method in Java */
     public static void main(String[] args)

@@ -342,6 +342,50 @@ public class Picture extends SimplePicture
         }
     }
 
+    /**
+     * Method to show the fish in the water
+     */
+    public void fixUnderwater()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for(Pixel[] rowArray : pixels)
+        {
+            for(Pixel pixelObj : rowArray)
+            {
+                int red = pixelObj.getRed();
+                int green = pixelObj.getGreen();
+                int blue = pixelObj.getBlue();
+                pixelObj.setRed(red + 70);
+                pixelObj.setBlue(blue - 30);
+                pixelObj.setGreen(green - 10);
+            }
+        }
+    }
+
+    /**
+     * Method to crop and copy a part of a picture and put it into another picture
+     */
+    public void cropAndCopy(Picture sourcePicture, int startSourceRow, int endSourceRow, int startSourceCol, int endSourceCol, int startDestRow, int startDestCol)
+    {
+        Pixel pix1 = null;
+        Pixel pix2 = null;
+        Pixel[][] pixels = this.getPixels2D();
+        startDestRow--;
+
+        // loop through the rows
+        for (int row = startSourceRow; row <= endSourceRow; row++)
+        {
+            startDestRow++;
+            for (int col = startSourceCol; col <= endSourceCol; col++)
+            {
+                pix1 = sourcePicture.getPixels2D()[row][col];      
+                pix2 = pixels[startDestRow][startDestCol];
+                pix2.setColor(pix1.getColor());
+                startDestCol++;
+            }
+        }
+    }
+
     /* Main method for testing - each class in Java can have a main 
      * method 
      */
