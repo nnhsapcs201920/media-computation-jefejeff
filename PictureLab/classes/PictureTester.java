@@ -138,7 +138,7 @@ public class PictureTester
     {
         Picture snowman = new Picture("snowman.jpg");
         Picture man = new Picture("blue-mark.jpg");
-        snowman.cropAndCopy(man, 170, 290, 280, 380, 40, 145);
+        snowman.cropAndCopy(man, 170, 290, 280, 380, 40, 155);
         snowman.explore();
     }
 

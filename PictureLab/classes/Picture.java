@@ -371,11 +371,13 @@ public class Picture extends SimplePicture
         Pixel pix2 = null;
         Pixel[][] pixels = this.getPixels2D();
         startDestRow--;
+        int start = startDestCol;
 
         // loop through the rows
         for (int row = startSourceRow; row <= endSourceRow; row++)
         {
             startDestRow++;
+            startDestCol = start;
             for (int col = startSourceCol; col <= endSourceCol; col++)
             {
                 pix1 = sourcePicture.getPixels2D()[row][col];      
