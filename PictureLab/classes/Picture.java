@@ -218,6 +218,7 @@ public class Picture extends SimplePicture
         }
     }
 
+    //Doesn't actually work
     /** Method that mirrors the picture along a diagonal placed from bottom left to top right     */
     public void mirrorDiagonal()
     {
@@ -370,20 +371,22 @@ public class Picture extends SimplePicture
         Pixel pix1 = null;
         Pixel pix2 = null;
         Pixel[][] pixels = this.getPixels2D();
-        startDestRow--;
-        int start = startDestCol;
+        Pixel[][] pixels2 = sourcePicture.getPixels2D();
+        int startDestRow2 = startDestRow;
+        startDestRow2--;
+        int startDestCol2 = startDestCol;
 
         // loop through the rows
         for (int row = startSourceRow; row <= endSourceRow; row++)
         {
-            startDestRow++;
-            startDestCol = start;
+            startDestRow2++;
+            startDestCol2 = startDestCol;
             for (int col = startSourceCol; col <= endSourceCol; col++)
             {
-                pix1 = sourcePicture.getPixels2D()[row][col];      
-                pix2 = pixels[startDestRow][startDestCol];
+                pix1 = pixels2[row][col];      
+                pix2 = pixels[startDestRow2][startDestCol2];
                 pix2.setColor(pix1.getColor());
-                startDestCol++;
+                startDestCol2++;
             }
         }
     }
