@@ -20,12 +20,15 @@ public class Collage
         Picture me9 = new Picture("me.jpg");
 
         //running the various methods and filters on the pictures
-        me1.posterize();
-        me2.negate();
-        me3.keepOnlyBlue();
-        me4.mirrorVertical();
+        me1.negate();
+        me2.posterize();
+        me3.sepia();
+        me4.pixelate();
         //leave me5 in original form
         me6.mirrorVerticalRightToLeft();
+        me7.mirrorVertical();
+        me8.mirrorHorizontal();
+        me9.mirrorVerticalRightToLeft();
 
         Picture canvas = new Picture(1240, 1540);
         canvas.setBlack();

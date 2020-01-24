@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.text.*;
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
+import java.awt.Graphics;
 
 /**
  * A class that represents a picture.  This class inherits from 
@@ -218,22 +219,24 @@ public class Picture extends SimplePicture
         }
     }
 
-    //Doesn't actually work
-    /** Method that mirrors the picture along a diagonal placed from bottom left to top right     */
+    /** Method that mirrors the picture along a diagonal placed from top left to bottom right     */
     public void mirrorDiagonal()
     {
-        Pixel [] [] pixels = this.getPixels2D();
-        Pixel topPixel = null;
-        Pixel botPixel = null;
-        for (int row = 0; row < pixels.length / 2; row++)
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel leftPixel = null;
+        Pixel rightPixel = null;
+        int width = pixels[0].length;
+        int rowMirror = 0;
+        for (int col = 0; col < width; col++)
         {
-            for (int col = 0; col < pixels[0].length; col++)
+            for (int row = 0; row < rowMirror; row++)
             {
-                topPixel = pixels[row][col];
-                botPixel = pixels[pixels.length - 1 - row][pixels[0].length - 1 - col];
-                botPixel.setColor(topPixel.getColor());
+                leftPixel = pixels[row][col];
+                rightPixel = pixels[col][row];
+                rightPixel.setColor(leftPixel.getColor());
+                rowMirror++;
             }
-        }
+        } 
     }
 
     /** Mirror just part of a picture of a temple */
@@ -524,12 +527,74 @@ public class Picture extends SimplePicture
                 int red = pixelObj.getRed();
                 int blue = pixelObj.getBlue();
                 int green = pixelObj.getGreen();
-                int avg = (red + blue + green) / 3;
-                pixelObj.setRed(avg);
-                pixelObj.setGreen(avg);
-                pixelObj.setBlue(avg);
+                if (red < 60)
+                {
+                    pixelObj.setRed((int) (red * 0.9));
+                    pixelObj.setBlue((int) (blue * 0.9));
+                    pixelObj.setGreen((int) (green * 0.9));
+                }
+                else if (red < 190)
+                {
+                    pixelObj.setBlue((int) (blue * 0.8));
+                }
+                else
+                {
+                    pixelObj.setBlue((int) (blue * 0.9));
+                }
             }
         }
+    }
+
+    /** Method to pixelate the picture */
+    public void pixelate()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel upperLeftPixel = null;
+        Pixel upperCenterPixel = null;
+        Pixel upperRightPixel = null;
+        Pixel leftPixel = null;
+        Pixel centerPixel = null;
+        Pixel rightPixel = null;
+        Pixel bottomLeftPixel = null;
+        Pixel bottomCenterPixel = null;
+        Pixel bottomRightPixel = null;
+        int width = pixels[0].length;
+        for (int row = 1; row < pixels.length - 1; row += 3)
+        {
+            for (int col = 1; col < width - 2; col += 3)
+            {
+                centerPixel = pixels[row][col];
+                upperLeftPixel = pixels[row - 1][col - 1];
+                upperCenterPixel = pixels[row - 1][col];
+                upperRightPixel = pixels[row - 1][col + 1];
+                leftPixel = pixels[row][col - 1];
+                rightPixel = pixels[row][col + 1];
+                bottomLeftPixel = pixels[row + 1][col - 1];
+                bottomCenterPixel = pixels[row + 1][col];
+                bottomRightPixel = pixels[row + 1] [col + 1];
+                upperRightPixel.setColor(centerPixel.getColor());
+                rightPixel.setColor(centerPixel.getColor());
+                bottomRightPixel.setColor(centerPixel.getColor());
+                leftPixel.setColor(centerPixel.getColor());
+                upperLeftPixel.setColor(centerPixel.getColor());
+                bottomLeftPixel.setColor(centerPixel.getColor());
+                upperCenterPixel.setColor(centerPixel.getColor());
+                bottomCenterPixel.setColor(centerPixel.getColor());
+            }
+        } 
+    }
+
+    /** Method to turn the picture into a sine wave */
+    public void sineWave()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        int freq = 4;
+        int skip = 4;
+        int maxAmp = 2;
+        //for(int i = 0; i < pixels.length; 
+        //{
+        //  for(int j = 0; j < pixels[0].length; 
+        // }
     }
 
     /* Main method for testing - each class in Java can have a main 
