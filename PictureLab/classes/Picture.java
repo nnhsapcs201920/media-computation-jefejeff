@@ -584,17 +584,69 @@ public class Picture extends SimplePicture
         } 
     }
 
+    /**
+     * Method to map a point from one range to another
+     * 
+     * @param value     the value to map
+     * @param start1    the beginning of the initial range
+     * @param start2    the beginning of the destination range
+     * @param end1      the end of the initial range
+     * @param end2      the end of the destination range
+     * 
+     * @return          the new value converted to the destination range
+     */
+    public double map(double value, double start1, double end1, double start2, double end2)
+    {
+        double newValue = 0;
+        double factor = (double) ((end2 - start2)/(end1 - start1));
+        newValue = (double) (((value - start1)*factor) + start2);
+        return newValue;
+    }
+
     /** Method to turn the picture into a sine wave */
     public void sineWave()
     {
-        Pixel[][] pixels = this.getPixels2D();
-        int freq = 4;
-        int skip = 4;
-        int maxAmp = 2;
-        //for(int i = 0; i < pixels.length; 
-        //{
-        //  for(int j = 0; j < pixels[0].length; 
-        // }
+        Pixel[][] pixels1 = this.getPixels2D();
+        int[][] pixels2 = new int[pixels1.length][pixels1[0].length];
+
+        int y1;
+        int y2;
+        int skip = 1;
+        double freq = 4;
+        double maxAmp = skip/2.0;
+        double maxFreq = freq;
+
+        for (int y = (int) maxAmp; y < pixels1.length; y+=skip) {
+            y1 = y;
+            for (int x = 0; x < pixels1[0].length; x+=1) {
+                Pixel p = pixels1[y][x];
+                int r = p.getRed();
+                int g = p.getGreen();
+                int b = p.getBlue();
+
+                double hue = p.getHue(r, g, b);
+                double brightness = p.getBrightness(r, g, b);
+
+                double amplitude = map(brightness, 0, 255, maxAmp, 0);
+                double frequency = map(hue, 0, 255, 2, maxFreq);
+                double t = map(x, 0, pixels1[0].length, 0, 250*(2*Math.PI));
+
+                y2 = (int) (y+amplitude*Math.sin(frequency*t));
+
+                pixels2[y2][x] = 1;
+                y1=y2;
+            }
+        }
+        for (int y = 0; y < pixels1.length; y++) {
+            for (int x = 0; x < pixels1[0].length; x++) {
+                if (pixels2[y][x] == 1) {
+                    pixels1[y][x].setColor(Color.BLACK);
+                }
+                else {
+                    pixels1[y][x].setColor(Color.WHITE);
+                }
+            }
+        }
     }
 
     /* Main method for testing - each class in Java can have a main 

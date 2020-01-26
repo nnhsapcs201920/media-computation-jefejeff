@@ -25,14 +25,15 @@ public class Collage
         me3.sepia();
         me4.pixelate();
         //leave me5 in original form
-        me6.mirrorVerticalRightToLeft();
+        me6.sineWave();
         me7.mirrorVertical();
         me8.mirrorHorizontal();
         me9.mirrorVerticalRightToLeft();
 
+        //using CropAndCopy to fit all the pictures onto the collage canvas
+        //  and spacing properly to make a "picture frame
         Picture canvas = new Picture(1240, 1540);
         canvas.setBlack();
-        //using CropAndCopy to fit all the pictures onto the collage canvas
         canvas.cropAndCopy(me1, 0, 399, 0, 499, 10, 10);
         canvas.cropAndCopy(me2, 0, 399, 0, 499, 10, 520);
         canvas.cropAndCopy(me3, 0, 399, 0, 499, 10, 1030);
@@ -43,7 +44,10 @@ public class Collage
         canvas.cropAndCopy(me8, 0, 399, 0, 499, 830, 520);
         canvas.cropAndCopy(me9, 0, 399, 0, 499, 830, 1030);
 
-        //creating a "picture frame" around all the pictures"
+        //display collage
         canvas.explore();
+
+        //write collage
+        canvas.write("Collage.jpg");
     }
 }
